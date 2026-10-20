@@ -1,0 +1,6 @@
+# DELETE — replace <ACCOUNT_ID> with the id returned by CREATE
+curl -i -X DELETE http://localhost:8080/api/accounts/<ACCOUNT_ID>
+
+# Expected response shape:
+HTTP/1.1 200 OK
+{"deleted":true,"id":"<ACCOUNT_ID>"}
