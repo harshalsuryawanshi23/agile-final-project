@@ -4,7 +4,7 @@
 
 A learning capstone demonstrating Agile planning, RESTful account management, automated tests, CI, security headers, containerization, and Kubernetes deployment.
 
-> The repository includes implementation and deployment configuration examples. The CI badge reflects the real GitHub Actions workflow status. Docker/Kubernetes/Tekton evidence files identify where actual runtime output must be captured; they do not claim that those commands were executed here.
+> CI runs the unit tests and lint checks, exercises the REST CRUD endpoints with cURL, builds the Docker image, deploys it to a temporary Kind cluster, and runs the Tekton CD PipelineRun. Captured runtime logs are saved under `evidence/`. The temporary cluster is deleted after the workflow; this repo does not host a persistent live endpoint.
 
 ## Features
 - Create, read, list, update, and delete customer accounts through a REST API.
