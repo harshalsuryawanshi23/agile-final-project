@@ -1,25 +1,32 @@
-# Successful GitHub Actions run — actual run and workflow output summary
-Run URL: https://github.com/harshalsuryawanshi23/agile-final-project/actions/runs/39437378469
-Commit: c4d3e60e9a38f5b72cf68a9d82f26f2faf31da54
-Job: Lint and test
+# Actual successful GitHub Actions run
+Run URL: https://github.com/harshalsuryawanshi23/agile-final-project/actions/runs/39439605253
+Commit: b539c6466c09d5f4b4e962775050a8c6222cca9a
 Job conclusion: success
 
-Step results:
+Completed steps:
 1. Set up job — success
 2. Check out code — success
 3. Set up Python — success
 4. Install dependencies — success
 5. Lint with Flake8 — success
-6. Lint with Pylint — success (score 10.00/10)
+6. Lint with Pylint — success; score 10.00/10
 7. Run unit tests with nosetests — success
 8. Run live REST CRUD cURL smoke test — success
-9. Post Set up Python — success
-10. Post Check out code — success
-11. Complete job — success
+9. Build Docker image and record metadata — success
+10. Deploy to ephemeral Kubernetes cluster (Kind) — success; deployment rolled out, health endpoint HTTP 200, Tekton CD PipelineRun succeeded
+11. Post Set up Python — success
+12. Post Check out code — success
+13. Complete job — success
 
-Test output from the run:
-Ran 6 tests in 0.213s
-OK
-Coverage: 94% total (service/__init__.py 100%; service/routes.py 92%)
+Unit test results:
+test_cors_policy ... ok
+test_create_read_update_delete_account ... ok
+test_health_endpoint ... ok
+test_list_accounts ... ok
+test_security_headers ... ok
+test_validation ... ok
 
-Full live REST cURL output is saved in rest-create-done, rest-list-done, rest-read-done, rest-update-done, and rest-delete-done. The run URL above is the source of the captured output.
+Ran 6 tests; OK
+Coverage: service/__init__.py 100%, service/routes.py 92%, total 94%.
+
+Tekton: PipelineRun accounts-cd-run completed with Succeeded=True; TaskRun accounts-cd-run-deploy succeeded. The complete captured Tekton status and task log are in evidence/pipelinerun.txt.
