@@ -1,0 +1,6 @@
+# Capture actual GitHub Actions logs after the workflow completes.
+Workflow: https://github.com/harshalsuryawanshi23/agile-final-project/actions/workflows/ci-build.yaml
+
+Expected steps: Check out code; Set up Python; Install dependencies; Lint with Flake8; Lint with Pylint; Run unit tests with nosetests.
+
+Paste the real run details and result here. Do not submit a mock success transcript.
