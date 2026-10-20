@@ -1,0 +1,8 @@
+# CREATE — run after starting server.py
+curl -i -X POST http://localhost:8080/api/accounts \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Asha Patil","email":"asha@example.com"}'
+
+# Expected response shape. Replace with the actual output:
+HTTP/1.1 201 CREATED
+{"id":"<generated-uuid>","name":"Asha Patil","email":"asha@example.com"}
