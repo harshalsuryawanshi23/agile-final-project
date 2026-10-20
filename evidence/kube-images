@@ -1,5 +1,11 @@
-# Capture actual image metadata:
-# docker images accounts
-# docker image inspect accounts:1.0 --format 'Name={{.RepoTags}} Tag={{index .RepoTags 0}} ImageID={{.Id}} Created={{.Created}} Size={{.Size}}'
-#
-# Paste real output here; image ID, creation time, and size depend on your build.
+# Captured from actual Docker build in GitHub Actions
+# Run: https://github.com/harshalsuryawanshi23/agile-final-project/actions/runs/39438086097
+
+$ docker images accounts
+REPOSITORY   TAG       IMAGE ID       CREATED        SIZE
+accounts     1.0       b694194ce30e   1 second ago   143MB
+
+$ docker image inspect accounts:1.0 --format 'Name={{.RepoTags}} Tag={{index .RepoTags 0}} ImageID={{.Id}} Created={{.Created}} Size={{.Size}}'
+Name=[accounts:1.0] Tag=accounts:1.0 ImageID=sha256:b694194ce30e5cb6db464ec284cf149cf3dedd93af41197b9058cc3180b24911 Created=2026-10-20T14:19:25.83257168Z Size=143255310
+
+Note: these are real build-runner image details; IDs and timestamps change on future builds.
