@@ -1,6 +1,6 @@
-# DELETE — replace <ACCOUNT_ID> with the id returned by CREATE
-curl -i -X DELETE http://localhost:8080/api/accounts/<ACCOUNT_ID>
+# Captured from real GitHub Actions smoke test
+# Run URL: https://github.com/harshalsuryawanshi23/agile-final-project/actions/runs/39437378469
 
-# Expected response shape:
-HTTP/1.1 200 OK
-{"deleted":true,"id":"<ACCOUNT_ID>"}
+$ curl -sS -X DELETE http://127.0.0.1:8080/api/accounts/b80e854a-6beb-4b53-b967-3131daf8fc30
+{"deleted":true,"id":"b80e854a-6beb-4b53-b967-3131daf8fc30"}
+HTTP_STATUS:200
