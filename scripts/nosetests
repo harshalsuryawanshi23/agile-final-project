@@ -1,15 +1,16 @@
 #!/usr/bin/env python3
-"""Compatibility launcher for Nose 1.3.7 on Python 3.11+.
-
-Nose's legacy suite module references collections.Callable, which was removed
-from Python 3.10. Restore the alias before importing Nose, then delegate to
-its normal command-line entry point.
-"""
+"""Compatibility launcher for Nose 1.3.7 on Python 3.11+."""
 
 import collections
 import collections.abc
+import os
 import sys
 
+# Running this launcher from scripts/ places that folder at sys.path[0].
+# Ensure imports from the repository root (including service/) still resolve.
+sys.path.insert(0, os.getcwd())
+
+# Nose 1.3.7 references collections.Callable, removed in Python 3.10.
 if not hasattr(collections, "Callable"):
     collections.Callable = collections.abc.Callable
 
