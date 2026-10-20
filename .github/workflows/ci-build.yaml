@@ -70,11 +70,24 @@ jobs:
           kubectl wait --for=condition=Available deployment/tekton-pipelines-webhook -n tekton-pipelines --timeout=240s
           echo "=== START TEKTON CD PIPELINE ==="
           kubectl apply -f tekton/accounts-cd.yaml
-          kubectl wait --for=condition=Succeeded pipelinerun/accounts-cd-run --timeout=240s
+          PIPELINE_WAIT_FAILED=0
+          if ! kubectl wait --for=condition=Succeeded pipelinerun/accounts-cd-run --timeout=180s; then
+            PIPELINE_WAIT_FAILED=1
+          fi
+          echo "=== TEKTON PIPELINE RUN STATUS ==="
+          kubectl get pipelinerun accounts-cd-run -o yaml || true
+          echo "=== TEKTON TASK RUNS ==="
+          kubectl get taskruns
+          echo "=== TEKTON PODS ==="
+          kubectl get pods -o wide
           echo "=== TEKTON PIPELINE RUN DETAILS ==="
-          kubectl describe pipelinerun accounts-cd-run
+          kubectl describe pipelinerun accounts-cd-run || true
           echo "=== TEKTON TASK LOGS ==="
-          kubectl logs -l tekton.dev/pipelineRun=accounts-cd-run --all-containers=true
+          kubectl logs -l tekton.dev/pipelineRun=accounts-cd-run --all-containers=true --prefix=true || true
+          if [ "$PIPELINE_WAIT_FAILED" -ne 0 ]; then
+            echo "Tekton PipelineRun did not succeed; see status and logs above." >&2
+            exit 1
+          fi
           echo "=== APPLICATION JSON ON PORT 8080 ==="
           kubectl port-forward service/accounts 8080:8080 >/tmp/accounts-port-forward.log 2>&1 &
           PF_PID=$!
