@@ -1,4 +1,21 @@
-# Run: nosetests --with-coverage --cover-package=service
-# Paste the REAL terminal output here after running the command.
-# The suite covers: CORS, CRUD, health, list, security headers, and validation.
-# This file is a capture template, not a fabricated test transcript.
+# Captured from successful real GitHub Actions run:
+# https://github.com/harshalsuryawanshi23/agile-final-project/actions/runs/39437378469
+
+$ nosetests --with-coverage --cover-package=service
+test_cors_policy (test_accounts.AccountsApiTestCase.test_cors_policy) ... ok
+test_create_read_update_delete_account (test_accounts.AccountsApiTestCase.test_create_read_update_delete_account) ... ok
+test_health_endpoint (test_accounts.AccountsApiTestCase.test_health_endpoint) ... ok
+test_list_accounts (test_accounts.AccountsApiTestCase.test_list_accounts) ... ok
+test_security_headers (test_accounts.AccountsApiTestCase.test_security_headers) ... ok
+test_validation (test_accounts.AccountsApiTestCase.test_validation) ... ok
+
+Name                  Stmts   Miss  Cover
+-----------------------------------------
+service/__init__.py      14      0   100%
+service/routes.py        51      4    92%
+-----------------------------------------
+TOTAL                    65      4    94%
+----------------------------------------------------------------------
+Ran 6 tests in 0.213s
+
+OK
