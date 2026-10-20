@@ -1,6 +1,6 @@
-# LIST
-curl -i http://localhost:8080/api/accounts
+# Captured from real GitHub Actions smoke test
+# Run URL: https://github.com/harshalsuryawanshi23/agile-final-project/actions/runs/39437378469
 
-# Expected response shape; data depends on the accounts created in this run:
-HTTP/1.1 200 OK
-{"accounts":[{"id":"<generated-uuid>","name":"Asha Patil","email":"asha@example.com"}],"count":1}
+$ curl -sS http://127.0.0.1:8080/api/accounts
+{"accounts":[{"email":"asha@example.com","id":"b80e854a-6beb-4b53-b967-3131daf8fc30","name":"Asha Patil"}],"count":1}
+HTTP_STATUS:200
