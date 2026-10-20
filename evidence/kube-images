@@ -1,0 +1,5 @@
+# Capture actual image metadata:
+# docker images accounts
+# docker image inspect accounts:1.0 --format 'Name={{.RepoTags}} Tag={{index .RepoTags 0}} ImageID={{.Id}} Created={{.Created}} Size={{.Size}}'
+#
+# Paste real output here; image ID, creation time, and size depend on your build.
