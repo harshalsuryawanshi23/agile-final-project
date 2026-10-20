@@ -1,0 +1,6 @@
+# Tekton PipelineRun evidence
+# Capture actual logs from your cluster:
+# kubectl get pipelineruns
+# kubectl logs -l tekton.dev/pipelineRun=<PIPELINERUN_NAME> --all-containers=true
+#
+# Paste the complete real PipelineRun output here. No Tekton execution is claimed.
