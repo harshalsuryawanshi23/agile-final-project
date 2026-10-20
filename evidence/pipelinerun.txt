@@ -1,6 +1,134 @@
-# Tekton PipelineRun evidence
-# Capture actual logs from your cluster:
-# kubectl get pipelineruns
-# kubectl logs -l tekton.dev/pipelineRun=<PIPELINERUN_NAME> --all-containers=true
-#
-# Paste the complete real PipelineRun output here. No Tekton execution is claimed.
+# Actual Tekton PipelineRun transcript captured from successful GitHub Actions run
+Run URL: https://github.com/harshalsuryawanshi23/agile-final-project/actions/runs/39439605253
+Job: Deploy to ephemeral Kubernetes cluster (Kind) — success
+PipelineRun: accounts-cd-run; condition Succeeded=True; TaskRun accounts-cd-run-deploy succeeded.
+
+=== START TEKTON CD PIPELINE ===
+clusterrole.rbac.authorization.k8s.io/accounts-cd-deployer created
+clusterrolebinding.rbac.authorization.k8s.io/accounts-cd-deployer-binding created
+task.tekton.dev/deploy-accounts created
+pipeline.tekton.dev/accounts-cd created
+pipelinerun.tekton.dev/accounts-cd-run created
+pipelinerun.tekton.dev/accounts-cd-run condition met
+=== TEKTON PIPELINE RUN STATUS ===
+apiVersion: tekton.dev/v1
+kind: PipelineRun
+metadata:
+annotations:
+kubectl.kubernetes.io/last-applied-configuration: |
+{"apiVersion":"tekton.dev/v1","kind":"PipelineRun","metadata":{"annotations":{},"name":"accounts-cd-run","namespace":"default"},"spec":{"pipelineRef":{"name":"accounts-cd"},"taskRunTemplate":{"serviceAccountName":"default"}}}
+creationTimestamp: "2026-10-20T14:30:50Z"
+generation: 1
+labels:
+tekton.dev/pipeline: accounts-cd
+name: accounts-cd-run
+namespace: default
+resourceVersion: "905"
+uid: 8f65b3dc-390e-410a-a390-1bd8a916924b
+spec:
+pipelineRef:
+name: accounts-cd
+taskRunTemplate:
+serviceAccountName: default
+timeouts:
+pipeline: 1h0m0s
+status:
+childReferences:
+- apiVersion: tekton.dev/v1
+kind: TaskRun
+name: accounts-cd-run-deploy
+pipelineTaskName: deploy
+completionTime: "2026-10-20T14:31:03Z"
+conditions:
+- lastTransitionTime: "2026-10-20T14:31:03Z"
+message: 'Tasks Completed: 1 (Failed: 0, Cancelled 0), Skipped: 0'
+reason: Succeeded
+status: "True"
+type: Succeeded
+pipelineSpec:
+tasks:
+- name: deploy
+taskRef:
+kind: Task
+name: deploy-accounts
+provenance:
+featureFlags:
+awaitSidecarReadiness: true
+coschedule: workspaces
+enableAPIFields: beta
+enableProvenanceInStatus: true
+enforceNonfalsifiability: none
+maxResultSize: 4096
+resultExtractionMethod: termination-message
+runningInEnvWithInjectedSidecars: true
+verificationNoMatchPolicy: ignore
+startTime: "2026-10-20T14:30:50Z"
+=== TEKTON TASK RUNS ===
+NAME                     SUCCEEDED   REASON      STARTTIME   COMPLETIONTIME
+accounts-cd-run-deploy   True        Succeeded   13s         0s
+=== TEKTON PODS ===
+NAME                         READY   STATUS      RESTARTS   AGE   IP            NODE                        NOMINATED NODE   READINESS GATES
+accounts-645d7b6d6c-jdx66    0/1     Running     0          3s    10.244.0.11   accounts-ci-control-plane   <none>           <none>
+accounts-cd-run-deploy-pod   0/1     Completed   0          13s   10.244.0.10   accounts-ci-control-plane   <none>           <none>
+accounts-d5d9c9f7-zmtm9      1/1     Running     0          46s   10.244.0.5    accounts-ci-control-plane   <none>           <none>
+=== TEKTON PIPELINE RUN DETAILS ===
+Name:         accounts-cd-run
+Namespace:    default
+Labels:       tekton.dev/pipeline=accounts-cd
+Annotations:  <none>
+API Version:  tekton.dev/v1
+Kind:         PipelineRun
+Metadata:
+Creation Timestamp:  2026-10-20T14:30:50Z
+Generation:          1
+Resource Version:    905
+UID:                 8f65b3dc-390e-410a-a390-1bd8a916924b
+Spec:
+Pipeline Ref:
+Name:  accounts-cd
+Task Run Template:
+Service Account Name:  default
+Timeouts:
+Pipeline:  1h0m0s
+Status:
+Child References:
+API Version:         tekton.dev/v1
+Kind:                TaskRun
+Name:                accounts-cd-run-deploy
+Pipeline Task Name:  deploy
+Completion Time:       2026-10-20T14:31:03Z
+Conditions:
+Last Transition Time:  2026-10-20T14:31:03Z
+Message:               Tasks Completed: 1 (Failed: 0, Cancelled 0), Skipped: 0
+Reason:                Succeeded
+Status:                True
+Type:                  Succeeded
+Pipeline Spec:
+Tasks:
+Name:  deploy
+Task Ref:
+Kind:  Task
+Name:  deploy-accounts
+Provenance:
+Feature Flags:
+Await Sidecar Readiness:                true
+Coschedule:                             workspaces
+Enable APIFields:                       beta
+Enable Provenance In Status:            true
+Enforce Nonfalsifiability:              none
+Max Result Size:                        4096
+Result Extraction Method:               termination-message
+Running In Env With Injected Sidecars:  true
+Verification No Match Policy:           ignore
+Start Time:                                 2026-10-20T14:30:50Z
+Events:
+Type    Reason     Age                From         Message
+----    ------     ----               ----         -------
+Normal  Started    14s (x2 over 14s)  PipelineRun  
+Normal  Running    14s (x2 over 14s)  PipelineRun  Tasks Completed: 0 (Failed: 0, Cancelled 0), Incomplete: 1, Skipped: 0
+Normal  Succeeded  1s                 PipelineRun  Tasks Completed: 1 (Failed: 0, Cancelled 0), Skipped: 0
+=== TEKTON TASK LOGS ===
+[pod/accounts-cd-run-deploy-pod/prepare] 2026/10/20 14:30:53 Entrypoint initialization
+[pod/accounts-cd-run-deploy-pod/place-scripts] 2026/10/20 14:30:56 Decoded script /tekton/scripts/script-0-4k87d
+[pod/accounts-cd-run-deploy-pod/step-restart-and-check] Restart requested for deployment/accounts; generation=2
+[pod/accounts-cd-run-deploy-pod/step-restart-and-check] Deployment accounts is ready: updatedReplicas=1, availableReplicas=1
