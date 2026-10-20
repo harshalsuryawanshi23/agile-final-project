@@ -1,0 +1,8 @@
+# UPDATE — replace <ACCOUNT_ID> with the id returned by CREATE
+curl -i -X PUT http://localhost:8080/api/accounts/<ACCOUNT_ID> \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Asha P.","email":"asha.p@example.com"}'
+
+# Expected response shape:
+HTTP/1.1 200 OK
+{"id":"<ACCOUNT_ID>","name":"Asha P.","email":"asha.p@example.com"}
