@@ -1,8 +1,8 @@
-# Capture actual JSON after deployment and port-forwarding:
-# kubectl port-forward service/accounts 8080:8080
-# In another terminal: curl http://localhost:8080/api/health
-#
-# Expected response shape:
-# {"status":"ok","service":"accounts"}
-#
-# Paste the real output from your cluster here.
+# Captured from the application deployed in the ephemeral Kind cluster in CI
+# Run: https://github.com/harshalsuryawanshi23/agile-final-project/actions/runs/39438086097
+# Command: kubectl port-forward service/accounts 8080:8080; curl http://127.0.0.1:8080/api/health
+
+{"service":"accounts","status":"ok"}
+HTTP_STATUS:200
+
+The app was reached through the Kubernetes Service port-forward on local port 8080. The Kind cluster was temporary and has been removed after the workflow.
