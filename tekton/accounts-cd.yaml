@@ -1,0 +1,61 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: accounts-cd-deployer
+rules:
+  - apiGroups: ["apps"]
+    resources: ["deployments"]
+    verbs: ["get", "list", "patch"]
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["get", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: accounts-cd-deployer-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: accounts-cd-deployer
+subjects:
+  - kind: ServiceAccount
+    name: default
+    namespace: default
+---
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: deploy-accounts
+spec:
+  steps:
+    - name: restart-and-check
+      image: bitnami/kubectl:1.31.4
+      script: |
+        #!/bin/sh
+        set -eu
+        TOKEN="$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)"
+        CA="/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
+        API="https://${KUBERNETES_SERVICE_HOST}:${KUBERNETES_SERVICE_PORT}"
+        kubectl --server="$API" --certificate-authority="$CA" --token="$TOKEN" rollout restart deployment/accounts
+        kubectl --server="$API" --certificate-authority="$CA" --token="$TOKEN" rollout status deployment/accounts --timeout=120s
+---
+apiVersion: tekton.dev/v1
+kind: Pipeline
+metadata:
+  name: accounts-cd
+spec:
+  tasks:
+    - name: deploy
+      taskRef:
+        name: deploy-accounts
+---
+apiVersion: tekton.dev/v1
+kind: PipelineRun
+metadata:
+  name: accounts-cd-run
+spec:
+  pipelineRef:
+    name: accounts-cd
+  taskRunTemplate:
+    serviceAccountName: default
