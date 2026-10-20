@@ -1,0 +1,8 @@
+# Capture actual JSON after deployment and port-forwarding:
+# kubectl port-forward service/accounts 8080:8080
+# In another terminal: curl http://localhost:8080/api/health
+#
+# Expected response shape:
+# {"status":"ok","service":"accounts"}
+#
+# Paste the real output from your cluster here.
