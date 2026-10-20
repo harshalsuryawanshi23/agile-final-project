@@ -1,8 +1,8 @@
-# Captured from the application deployed in the ephemeral Kind cluster in CI
-# Run: https://github.com/harshalsuryawanshi23/agile-final-project/actions/runs/39438086097
-# Command: kubectl port-forward service/accounts 8080:8080; curl http://127.0.0.1:8080/api/health
+# Actual application JSON from successful GitHub Actions Kind deployment
+Run URL: https://github.com/harshalsuryawanshi23/agile-final-project/actions/runs/39439605253
+Command: kubectl port-forward service/accounts 8080:8080; curl http://127.0.0.1:8080/api/health
 
 {"service":"accounts","status":"ok"}
 HTTP_STATUS:200
 
-The app was reached through the Kubernetes Service port-forward on local port 8080. The Kind cluster was temporary and has been removed after the workflow.
+The application was reached on local port 8080 via a Kubernetes Service port-forward. The CI Kind cluster was ephemeral and is not a persistent hosted endpoint.
