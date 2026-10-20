@@ -39,3 +39,6 @@ jobs:
         run: |
           chmod +x scripts/nosetests
           PATH="$PWD/scripts:$PATH" nosetests --with-coverage --cover-package=service
+
+      - name: Run live REST CRUD cURL smoke test
+        run: bash scripts/smoke-rest.sh
