@@ -1,0 +1,6 @@
+# READ — replace <ACCOUNT_ID> with the id returned by CREATE
+curl -i http://localhost:8080/api/accounts/<ACCOUNT_ID>
+
+# Expected response shape:
+HTTP/1.1 200 OK
+{"id":"<ACCOUNT_ID>","name":"Asha Patil","email":"asha@example.com"}
