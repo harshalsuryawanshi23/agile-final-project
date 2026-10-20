@@ -63,6 +63,17 @@ jobs:
           kubectl rollout status deployment/accounts --timeout=120s
           echo "=== KUBERNETES RESOURCES ==="
           kubectl get deployment,pods,replicasets,services -o wide
+          echo "=== INSTALL TEKTON PIPELINES ==="
+          kubectl apply --filename https://storage.googleapis.com/tekton-releases/pipeline/latest/release.yaml
+          kubectl wait --for=condition=Available deployment/tekton-pipelines-controller -n tekton-pipelines --timeout=240s
+          kubectl wait --for=condition=Available deployment/tekton-pipelines-webhook -n tekton-pipelines --timeout=240s
+          echo "=== START TEKTON CD PIPELINE ==="
+          kubectl apply -f tekton/accounts-cd.yaml
+          kubectl wait --for=condition=Succeeded pipelinerun/accounts-cd-run --timeout=240s
+          echo "=== TEKTON PIPELINE RUN DETAILS ==="
+          kubectl describe pipelinerun accounts-cd-run
+          echo "=== TEKTON TASK LOGS ==="
+          kubectl logs -l tekton.dev/pipelineRun=accounts-cd-run --all-containers=true
           echo "=== APPLICATION JSON ON PORT 8080 ==="
           kubectl port-forward service/accounts 8080:8080 >/tmp/accounts-port-forward.log 2>&1 &
           PF_PID=$!
