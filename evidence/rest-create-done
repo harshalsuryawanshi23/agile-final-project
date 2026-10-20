@@ -1,8 +1,6 @@
-# CREATE — run after starting server.py
-curl -i -X POST http://localhost:8080/api/accounts \
-  -H "Content-Type: application/json" \
-  -d '{"name":"Asha Patil","email":"asha@example.com"}'
+# Captured from real GitHub Actions smoke test
+# Run URL: https://github.com/harshalsuryawanshi23/agile-final-project/actions/runs/39437378469
 
-# Expected response shape. Replace with the actual output:
-HTTP/1.1 201 CREATED
-{"id":"<generated-uuid>","name":"Asha Patil","email":"asha@example.com"}
+$ curl -sS -X POST http://127.0.0.1:8080/api/accounts -H "Content-Type: application/json" -d '{"name":"Asha Patil","email":"asha@example.com"}'
+{"email":"asha@example.com","id":"b80e854a-6beb-4b53-b967-3131daf8fc30","name":"Asha Patil"}
+HTTP_STATUS:201
