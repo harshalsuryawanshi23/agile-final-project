@@ -1,0 +1,6 @@
+# LIST
+curl -i http://localhost:8080/api/accounts
+
+# Expected response shape; data depends on the accounts created in this run:
+HTTP/1.1 200 OK
+{"accounts":[{"id":"<generated-uuid>","name":"Asha Patil","email":"asha@example.com"}],"count":1}
