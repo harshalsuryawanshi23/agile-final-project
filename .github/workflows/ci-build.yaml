@@ -42,3 +42,35 @@ jobs:
 
       - name: Run live REST CRUD cURL smoke test
         run: bash scripts/smoke-rest.sh
+      - name: Build Docker image and record metadata
+        run: |
+          set -euo pipefail
+          docker build -t accounts:1.0 .
+          echo "=== DOCKER IMAGE LIST ==="
+          docker images accounts
+          echo "=== DOCKER IMAGE INSPECT ==="
+          docker image inspect accounts:1.0 --format 'Name={{.RepoTags}} Tag={{index .RepoTags 0}} ImageID={{.Id}} Created={{.Created}} Size={{.Size}}'
+
+      - name: Deploy to ephemeral Kubernetes cluster (Kind)
+        run: |
+          set -euo pipefail
+          curl -fsSLo /tmp/kind https://kind.sigs.k8s.io/dl/v0.27.0/kind-linux-amd64
+          chmod +x /tmp/kind
+          sudo mv /tmp/kind /usr/local/bin/kind
+          kind create cluster --name accounts-ci --wait 120s
+          kind load docker-image accounts:1.0 --name accounts-ci
+          kubectl apply -f k8s/
+          kubectl rollout status deployment/accounts --timeout=120s
+          echo "=== KUBERNETES RESOURCES ==="
+          kubectl get deployment,pods,replicasets,services -o wide
+          echo "=== APPLICATION JSON ON PORT 8080 ==="
+          kubectl port-forward service/accounts 8080:8080 >/tmp/accounts-port-forward.log 2>&1 &
+          PF_PID=$!
+          trap 'kill "$PF_PID" 2>/dev/null || true; kind delete cluster --name accounts-ci >/dev/null 2>&1 || true' EXIT
+          for attempt in $(seq 1 20); do
+            if curl -fsS http://127.0.0.1:8080/api/health >/dev/null; then
+              break
+            fi
+            sleep 1
+          done
+          curl -sS -w '\nHTTP_STATUS:%{http_code}\n' http://127.0.0.1:8080/api/health
