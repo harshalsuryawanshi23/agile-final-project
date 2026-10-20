@@ -64,7 +64,8 @@ jobs:
           echo "=== KUBERNETES RESOURCES ==="
           kubectl get deployment,pods,replicasets,services -o wide
           echo "=== INSTALL TEKTON PIPELINES ==="
-          kubectl apply --filename https://storage.googleapis.com/tekton-releases/pipeline/latest/release.yaml
+          curl --fail --show-error --silent --location --retry 2 --retry-delay 2 --max-time 90 --output /tmp/tekton-pipeline-release.yaml https://storage.googleapis.com/tekton-releases/pipeline/latest/release.yaml
+          kubectl apply --filename /tmp/tekton-pipeline-release.yaml
           kubectl wait --for=condition=Available deployment/tekton-pipelines-controller -n tekton-pipelines --timeout=240s
           kubectl wait --for=condition=Available deployment/tekton-pipelines-webhook -n tekton-pipelines --timeout=240s
           echo "=== START TEKTON CD PIPELINE ==="
