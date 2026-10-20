@@ -1,0 +1,4 @@
+# Run: nosetests --with-coverage --cover-package=service
+# Paste the REAL terminal output here after running the command.
+# The suite covers: CORS, CRUD, health, list, security headers, and validation.
+# This file is a capture template, not a fabricated test transcript.
