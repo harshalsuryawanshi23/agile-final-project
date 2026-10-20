@@ -1,0 +1,5 @@
+# Apply and capture actual Kubernetes resources:
+# kubectl apply -f k8s/
+# kubectl get deployment,pods,replicasets,services -o wide
+#
+# Paste actual output here; statuses depend on the current Kubernetes context.
