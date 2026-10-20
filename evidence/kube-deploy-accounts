@@ -1,5 +1,18 @@
-# Apply and capture actual Kubernetes resources:
-# kubectl apply -f k8s/
-# kubectl get deployment,pods,replicasets,services -o wide
-#
-# Paste actual output here; statuses depend on the current Kubernetes context.
+# Captured from actual ephemeral Kind Kubernetes cluster in GitHub Actions
+# Run: https://github.com/harshalsuryawanshi23/agile-final-project/actions/runs/39438086097
+
+$ kubectl get deployment,pods,replicasets,services -o wide
+NAME                       READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES         SELECTOR
+deployment.apps/accounts   1/1     1            1           7s    accounts     accounts:1.0   app=accounts
+
+NAME                          READY   STATUS    RESTARTS   AGE   IP           NODE                        NOMINATED NODE   READINESS GATES
+pod/accounts-d5d9c9f7-8r76t   1/1     Running   0          7s    10.244.0.5   accounts-ci-control-plane   <none>           <none>
+
+NAME                                DESIRED   CURRENT   READY   AGE   CONTAINERS   IMAGES         SELECTOR
+replicaset.apps/accounts-d5d9c9f7   1         1         1       7s    accounts     accounts:1.0   app=accounts,pod-template-hash=d5d9c9f7
+
+NAME                 TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)    AGE   SELECTOR
+service/accounts     ClusterIP   10.96.77.203   <none>        8080/TCP   7s    app=accounts
+service/kubernetes   ClusterIP   10.96.0.1      <none>        443/TCP    36s   <none>
+
+The temporary CI cluster is destroyed after the job; these are captured deployment results, not a persistent hosted endpoint.
