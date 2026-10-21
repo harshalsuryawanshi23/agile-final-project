@@ -32,4 +32,7 @@ def create_app(test_config=None):
 
     from service.routes import api
     app.register_blueprint(api, url_prefix="/api")
+    # Also expose the assignment-style root endpoints (for example /accounts).
+    # Keep the /api endpoints for existing clients and smoke tests.
+    app.register_blueprint(api, url_prefix="", name="accounts_api_root")
     return app
